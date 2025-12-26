@@ -1,0 +1,6 @@
+__pycache__
+movie
+checkpoints
+runs
+BUILD.md
+*.so

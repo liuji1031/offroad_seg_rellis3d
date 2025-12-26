@@ -1,0 +1,48 @@
+point_cloud_encoder:
+  polar_grid_config: "/home/ji-liu/GitHub/off_road_nav/RELLIS/Rellis-3D/00000/bev_seg_polar/bev_seg_config.json"
+  point_cloud_range_z: [-3, 5]
+  max_points_per_voxel: 32
+  max_voxels: 16000
+  feat_channels: [64, 256]
+  in_channels: 4
+
+image_encoder:
+  backbone_config:
+    type: "ResNetBackbone"
+    depth: 50
+    pretrained: true
+    num_stages: 4
+    out_indices: [0, 1, 2, 3]
+    frozen_stages: -1
+  neck_config:
+    type: "GeneralizedLSSFPN"
+    in_channels: [256, 512, 1024, 2048]
+    out_channels: 256
+
+bev_transform:
+  in_channels: 256
+  out_channels: 256
+  image_size: [1200, 1920]  # original image size, needed to match the intrinsics of the camera
+  feature_size: [100, 160]  # original image is downsampled to 640x400, the dimension of the image encoder is 160x100
+  polar_grid_config: "/home/ji-liu/GitHub/off_road_nav/RELLIS/Rellis-3D/00000/bev_seg_polar/bev_seg_config.json"
+  dbound: [4.0, 26.0, 0.5]
+  downsample: 1
+
+fusion:
+  type: "add"
+  camera_channels: 256
+  lidar_channels: 256
+  out_channels: 256
+  dropout: 0.1
+  learnable_fusion_weights: true
+
+segmentation_head:
+  type: "polar_aspp"
+  in_channels: 256
+  num_classes: 20
+  aspp_channels: 256
+  rates_radial: [2, 4, 6]
+  rates_angular: [1, 2, 3]
+  use_circular_pad: false
+  dropout: 0.1
+

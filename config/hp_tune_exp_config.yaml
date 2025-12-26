@@ -1,0 +1,92 @@
+# Training Configuration for RELLIS-3D BEV Segmentation
+
+# Model config path
+model_config: "full_model_v2.yaml"
+
+loss:
+  loss_type: "combined"
+  num_classes: 20
+  class_names:
+    - void
+    - dirt
+    - grass
+    - tree
+    - pole
+    - water
+    - sky
+    - vehicle
+    - object
+    - asphalt
+    - building
+    - log
+    - person
+    - fence
+    - bush
+    - concrete
+    - barrier
+    - puddle
+    - mud
+    - rubble
+  class_weights: [0.5, 8.0, 0.8, 2.0, 10.0, 8.0, 8.0, 8.0, 10.0, 10.0, 10.0, 4.0, 2.5, 6.0, 1.2, 2.5, 5.0, 6.0, 4.0, 5.0]
+  focal_alpha: 0.75
+  focal_gamma: 2.0
+  dice_smooth: 1.0
+  focal_weight: 1.0
+  dice_weight: 1.0
+
+# Data paths
+data_root: "/home/ji-liu/GitHub/off_road_nav/RELLIS/Rellis-3D"
+train_list: "split_list_train_hpt.lst"
+val_list: "split_list_val_hpt.lst"
+test_list: "split_list_test.lst"
+
+# Training hyperparameters
+num_epochs: 5
+batch_size: 4
+num_workers: 8
+learning_rate: 0.00005  # Reduced: 5e-5 (was 1e-4)
+weight_decay: 0.0001    # 1e-4
+gradient_clip: 5.0      # Reduced from 10.0
+
+# Learning rate warmup
+warmup_epochs: 3        # Gradually increase LR for first 3 epochs
+warmup_start_factor: 0.1  # Start at 10% of target LR
+
+# LR scheduler (ReduceLROnPlateau) - activates after warmup
+scheduler:
+  mode: "min"
+  factor: 0.5
+  patience: 5          # More patient (was 5)
+  min_lr: 0.000001      # 1e-6
+  threshold: 0.01       # Less sensitive (was 0.001)
+  threshold_mode: "rel"
+
+# Checkpointing
+checkpoint_dir: "checkpoints"
+resume_from: null  # Path to checkpoint or null
+
+# Logging
+log_dir: "runs"
+log_interval: 1  # Log every N batches
+grad_check_interval: 50  # Check gradients every N batches
+
+# Dataloader settings
+use_cache: true
+target_image_size: [640, 400]
+grid_type: "polar"
+num_classes: 20
+lidar_type: "os1"
+filter_fov: true
+max_samples: null  # Limit training samples (null = use all). Set to e.g., 50 for overfitting tests
+
+# Device
+device: "cuda"  # "cuda" or "cpu"
+gpu_id: 0
+
+# Reproducibility
+seed: 42
+
+# torch.compile settings (for JIT optimization)
+use_torch_compile: true
+torch_compile_mode: "default"  # Options: "default", "reduce-overhead", "max-autotune"
+

@@ -11,12 +11,6 @@ from .segmentation_head import (
     VanillaSegmentationHead,
     build_segmentation_head_from_config,
 )
-from .losses import (
-    focal_loss,
-    dice_loss,
-    lovasz_softmax,
-    combined_loss,
-)
 
 __all__ = [
     # ASPP modules
@@ -27,10 +21,5 @@ __all__ = [
     'PolarASPPSegmentationHead',
     'VanillaSegmentationHead',
     'build_segmentation_head_from_config',
-    # Loss functions
-    'focal_loss',
-    'dice_loss',
-    'lovasz_softmax',
-    'combined_loss',
 ]
 

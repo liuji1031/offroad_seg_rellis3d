@@ -11,8 +11,9 @@ To deal with the uneven distribution of LiDAR points, a **polar grid** with cust
 The goal of the model is to fuse camera and LiDAR data to produce the BEV segmentation map, which can be readily used for tasks such as path planning and navigation.
 
 <figure>
-  <img src="figures/example_cam_lidar_bev_seg.png" alt="Example BEV Segmentation Map" width="1200">
   <figcaption><strong>Example BEV Segmentation Map from sequence 00000, frame 104</strong></figcaption>
+  <img src="figures/example_cam_lidar_bev_seg.png" alt="Example BEV Segmentation Map" width="1200">
+  
 </figure>
 
 
@@ -174,7 +175,7 @@ fig = plot_prediction(inference, sequence_id, frame_idx)
 which will produce the figure similar to the following:
 
 <figure>
-  <img src="figures/example_prediction_00000_0.png" alt="Example Prediction" width="1200">
   <figcaption><strong>Example Prediction from sequence 00000, frame 0</strong></figcaption>
+  <img src="figures/example_prediction_00000_0.png" alt="Example Prediction" width="1200">
 </figure>
 

@@ -39,7 +39,6 @@ The final test performance (IoU by class) is shown in the table below for the to
 The full model architecture is shown in the figure below.
 <figure>
   <img src="figures/PolarBEVFusion.svg" alt="Model Architecture" width="500">
-  <figcaption><strong>Model Architecture</strong></figcaption>
 </figure>
 
 The model is composed of the following modules:

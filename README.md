@@ -1,5 +1,7 @@
 # Offroad BEV Segmentation for RELLIS-3D Dataset
 
+[![video](figures/youtube.png)](https://www.youtube.com/watch?v=2X0Eym8zvbc)
+
 ## Overview
 
 The goal of this project is to use the main idea from [BEVFusion](https://github.com/mit-han-lab/bevfusion) to train a custom model specifically for the off-road dataset [RELLIS-3D](https://github.com/unmannedlab/RELLIS-3D) to perform Bird Eye View (BEV) segmentation using both **camera** and **LiDAR** sensor data (multimodal fusion).

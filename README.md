@@ -36,7 +36,7 @@ The final test performance (IoU by class) is shown in the table below for the to
 
 The full model architecture is shown in the figure below.
 <figure>
-  <img src="figures/PolarBEVFusion.svg" alt="Model Architecture" width="300">
+  <img src="figures/PolarBEVFusion.svg" alt="Model Architecture" width="500">
   <figcaption style="text-align: left; padding-left: 80px;"><span style="font-family: Times New Roman, sans-serif;"><strong>Model Architecture</strong></span></figcaption>
 </figure>
 

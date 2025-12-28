@@ -1,0 +1,37 @@
+name: PolarBEVFusion
+modules:
+  input:
+    - image
+    - point cloud
+
+  resnet_backbone:
+    inp_src:
+      - image
+  
+  feature_pyramid_network:
+    inp_src:
+      - resnet_backbone
+
+  lift_splat_shoot:
+    inp_src:
+      - feature_pyramid_network
+
+  voxelization:
+    inp_src:
+      - point cloud
+
+  point_pillar_encoder:
+    inp_src:
+      - voxelization
+
+  additive_fusion:
+    inp_src:
+      - lift_splat_shoot
+      - point_pillar_encoder
+  
+  segmentation_head:
+    inp_src:
+      - additive_fusion
+
+  output:
+    - segmentation_head

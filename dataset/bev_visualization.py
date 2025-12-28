@@ -265,6 +265,7 @@ def plot_point_cloud_bev(
     point_size: float = 0.5,
     axes: mpl_axes.Axes | None = None,
     rotation: float | None = None,
+    title: str | None = None,
 ):
     if axes is None:
         axes = plt.gca()
@@ -310,7 +311,7 @@ def plot_point_cloud_bev(
     axes.set_xlim(-9, 9)
     axes.set_xlabel("X (forward)")
     axes.set_ylabel("Y (left)")
-    axes.set_title("Point Cloud (Top View)")
+    axes.set_title("Point Cloud (Top View)" if title is None else title)
     axes.set_aspect("equal")
     axes.grid(True, alpha=0.3)
 

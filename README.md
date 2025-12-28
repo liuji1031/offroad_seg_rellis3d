@@ -8,12 +8,14 @@ The goal of this project is to use the main idea from [BEVFusion](https://github
 
 To deal with the uneven distribution of LiDAR points, a **polar grid** with custom spacing is used to generate the BEV segmentation map (see the example figure below). The choice of the polar grid alleviates the problem of sparseness of LiDAR points as the distance from the sensor increases. The ground truth segmentation is generated from the labeled LiDAR points, filtered by the camera's field of view.
 
+The goal of the model is to fuse camera and LiDAR data to produce the BEV segmentation map, which can be readily used for tasks such as path planning and navigation.
+
 <figure>
   <img src="figures/example_cam_lidar_bev_seg.png" alt="Example BEV Segmentation Map" width="1200">
-  <figcaption style="text-align: left; padding-left: 60px;"><span style="font-family: Times New Roman, sans-serif;"><strong>Example BEV Segmentation Map from sequence 00000, frame 104</strong></span></figcaption>
+  <figcaption><strong>Example BEV Segmentation Map from sequence 00000, frame 104</strong></figcaption>
 </figure>
 
-The goal of the model is to fuse camera and LiDAR data to produce the BEV segmentation map, which can be readily used for tasks such as path planning and navigation.
+
 
 ## Performance
 
@@ -37,7 +39,7 @@ The final test performance (IoU by class) is shown in the table below for the to
 The full model architecture is shown in the figure below.
 <figure>
   <img src="figures/PolarBEVFusion.svg" alt="Model Architecture" width="500">
-  <figcaption style="text-align: left; padding-left: 80px;"><span style="font-family: Times New Roman, sans-serif;"><strong>Model Architecture</strong></span></figcaption>
+  <figcaption><strong>Model Architecture</strong></figcaption>
 </figure>
 
 The model is composed of the following modules:
@@ -174,6 +176,6 @@ which will produce the figure similar to the following:
 
 <figure>
   <img src="figures/example_prediction_00000_0.png" alt="Example Prediction" width="1200">
-  <figcaption style="text-align: left; padding-left: 60px;"><span style="font-family: Times New Roman, sans-serif;"><strong>Example Prediction from sequence 00000, frame 0</strong></span></figcaption>
+  <figcaption><strong>Example Prediction from sequence 00000, frame 0</strong></figcaption>
 </figure>
 

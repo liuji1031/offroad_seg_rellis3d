@@ -1,3 +1,4 @@
+import os
 import json
 from functools import lru_cache
 from pathlib import Path
@@ -19,6 +20,7 @@ from .util import (
     load_transform_from_yaml,
 )
 
+RELLIS_DATA_ROOT = os.getenv("RELLIS_DATA_ROOT", str(Path(__file__).parent.parent.parent / "RELLIS" / "Rellis-3D"))
 
 class RellisSequence:
     """Represents a single RELLIS-3D sequence with calibration information.
@@ -380,5 +382,4 @@ def get_rellis_sequence(
 
 @lru_cache(maxsize=None)
 def get_rellis_sequence_by_id(sequence_id: str):
-    root = Path(__file__).parent.parent.parent / "RELLIS" / "Rellis-3D"
-    return get_rellis_sequence(root, sequence_id)
+    return get_rellis_sequence(RELLIS_DATA_ROOT, sequence_id)

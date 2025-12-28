@@ -143,6 +143,67 @@ def plot_bev_seg_polar_on_image(
     return img_plot
 
 
+def plot_lidar_cam_bev_seg(
+    seq_id: str,
+    frame_idx: int,
+    new_figure: bool = True,
+    fig_size: tuple[int, int] = (10, 8),
+    show_fig: bool = True,
+):
+    sequence = get_rellis_sequence_by_id(seq_id)
+    bev_seg_config = sequence.load_bev_seg_config()
+    image = sequence.get_image(frame_idx)
+    points = sequence.get_lidar_points(frame_idx)
+    points_in_fov, mask = sequence.filter_points_in_fov(points)
+    labels = sequence.get_lidar_label(frame_idx)
+    labels_in_fov = labels[mask]
+    bev_seg_gt = sequence.load_bev_seg_gt(frame_idx)
+
+    if new_figure:
+        fig = plt.figure(figsize=fig_size)
+    else:
+        fig = plt.gcf()
+        # clear the figure
+        fig.clear()
+    gs = gridspec.GridSpec(nrows=2, ncols=3, figure=fig)
+
+    ax1 = fig.add_subplot(gs[0, :2])
+    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    plt.axis("off")
+    plt.title("Camera")
+
+    ax2 = fig.add_subplot(gs[1, 0])
+    plot_point_cloud_bev(
+        points=points_in_fov,
+        labels=labels_in_fov,
+        x_range=(-25.0, 25.0),
+        y_range=(0.0, 25.0),
+        axes=ax2,
+        rotation=np.deg2rad(-90),
+        title="Point Cloud (Filtered, Top View)",
+    )
+
+    ax3 = fig.add_subplot(gs[1, 1])
+    visualize_bev_polar(
+        bev_map=bev_seg_gt,
+        bev_config=bev_seg_config,
+        create_new_figure=False,
+        show=False,
+        rotation=np.deg2rad(-90),
+    )
+    plt.title("Ground Truth Segmentation")
+
+    ax4 = fig.add_subplot(gs[1, 2])
+    create_label_legend(
+        draw_on_axes=plt.gca(),
+    )
+    fig.tight_layout()
+
+    if show_fig:
+        fig.show()
+
+    return fig
+
 def plot_prediction(
     inference: RellisPolarBevFusionInference,
     seq_id: str,
@@ -193,7 +254,7 @@ def plot_prediction(
         show=False,
         rotation=np.deg2rad(-90),
     )
-    plt.title("Ground Truth")
+    plt.title("Ground Truth Segmentation")
 
     ax4 = fig.add_subplot(gs[1, 1])
     visualize_bev_polar(
